@@ -1,4 +1,4 @@
-# project2
+# Project 2
 
 Project takes music data and filters, enriches, then analyzes it to answer some questions.
 
