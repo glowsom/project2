@@ -75,7 +75,7 @@ object DataAnalysis {
       .groupBy(col("station_id"))					//	Group by station, and 
       .count().orderBy(col("count").desc).limit(10)			//	count the occurence of songs for each station, and arrange accordingly to get the top 10
 
-      .write.csv(args(1))
+      .write.format("com.databricks.spark.csv").option("header","true").save(args(1))
 
 
     /*======================================================PROBLEM 2=====================================================*/
@@ -116,7 +116,7 @@ object DataAnalysis {
       .count()
       .orderBy(col("count").desc).limit(10)					//take only top 10
 
-      .write.csv(args(3))
+      .write.format("com.databricks.spark.csv").option("header","true").save(args(3))
 
 
     /*======================================================PROBLEM 4=====================================================*/
@@ -133,9 +133,9 @@ object DataAnalysis {
       .select(enrichedDF("song_id"))							//Select only song_id 
       .groupBy("song_id")								//then group them and count # of occurences per unique song
       .count()
-      .orderBy(col("count").desc).limit(10)
+      .orderBy(col("count").desc).limit(10)						//The song with the highes count generated the maximum revenue
 
-      .write.csv(args(4))
+      .write.format("com.databricks.spark.csv").option("header","true").save(args(4))
 
 
 
@@ -152,8 +152,8 @@ object DataAnalysis {
     enrichedDF.filter( isUnsubUDF(col("user_id"), col("timestamp")))		//Retain only records with unsubscribed users
       .select(col("user_id"), (col("end_ts")-col("start_ts")) as "duration" )	//get duration of songs by subtracting start time from end time.
       .groupBy("user_id")							//Group according to user and sum up all durations per user
-      .sum("duration")
-      .orderBy(col("sum(duration)").desc).limit(10)				//take top 10
+      .agg(sum("duration") as "duration_length")
+      .orderBy(col("duration_length").desc).limit(10)				//take top 10
 
       .write.csv(args(5))
 
