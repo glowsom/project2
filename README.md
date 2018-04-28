@@ -1,4 +1,4 @@
-# Project 2
+# Hadoop Spark Project 2
 
 Project takes music data and filters, enriches, then analyzes it to answer some questions.
 
