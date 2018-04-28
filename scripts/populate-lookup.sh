@@ -9,14 +9,14 @@ LOGFILE=$root/logs/log_batch_$batchid
 echo "Creating LookUp Tables in HBase..." >> $LOGFILE
 
 
-echo "\t Populating song_artist_map Table from song-artist.txt..." >> $LOGFILE
+echo "Populating song_artist_map Table from song-artist.txt..." >> $LOGFILE
 
 echo "create 'song_artist_map', 'artist'" | hbase shell
 echo "create 'stn_geocd_map', 'geo'" | hbase shell
 echo "create 'user_artist_subscn_map', 'artist', 'subscn'" | hbase shell
 
 
-echo "\t Populating song_artist_map Table from song-artist.txt..." >> $LOGFILE
+echo "Populating song_artist_map Table from song-artist.txt..." >> $LOGFILE
 
 file="$root/Data/LookUp/song-artist.txt"
 while IFS= read -r line
@@ -27,7 +27,7 @@ do
 done <"$file"
 
 
-echo "\t Populating stn_geocd_map Table from stn-geocd.txt..." >> $LOGFILE
+echo "Populating stn_geocd_map Table from stn-geocd.txt..." >> $LOGFILE
 
 file="$root/Data/LookUp/stn-geocd.txt"
 while IFS= read -r line
@@ -38,7 +38,7 @@ do
 done <"$file"
 
 
-echo "\t Populating artist col-family in user_artist_subscn_map Table from user-artist.txt..." >> $LOGFILE
+echo "Populating artist col-family in user_artist_subscn_map Table from user-artist.txt..." >> $LOGFILE
 
 file="$root/Data/LookUp/user-artist.txt"
 while IFS= read -r line
@@ -49,7 +49,7 @@ do
 done <"$file"
 
 
-echo "\t Populating subscn col-family in user_artist_subscn_map Table from user-subscn.txt..." >> $LOGFILE
+echo "Populating subscn col-family in user_artist_subscn_map Table from user-subscn.txt..." >> $LOGFILE
 
 file="$root/Data/LookUp/user-subscn.txt"
 while IFS= read -r line
