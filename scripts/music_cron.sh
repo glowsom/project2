@@ -74,7 +74,7 @@ sh $root/scripts/data_filter_enrichment.sh
 echo "Analysing Data..."
 sh $root/scripts/data_analysis.sh
 
-echo "Music Job Completed at... Scheduled to re-run at 8am tomorrow." >> $LOGFILE
+echo "Music Job Completed... Scheduled to re-run at 8am tomorrow." >> $LOGFILE
 echo "Result files Located in HDFS at directory: /user/spark/p2/output..." >> $LOGFILE
 
 echo "Music job is done..."
