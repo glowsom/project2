@@ -1,0 +1,4 @@
+[0m[[0m[31merror[0m] [0m[0m/home/spark/p2/proj2/src/main/scala/music/DataAnalysis.scala:101:1: illegal start of statement[0m
+[0m[[0m[31merror[0m] [0m[0m.write.csv(args(2))[0m
+[0m[[0m[31merror[0m] [0m[0m^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
