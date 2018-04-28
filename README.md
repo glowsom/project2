@@ -24,7 +24,7 @@ By reading through music_cron.sh you'll understand how the application works.
 
 The results to these problems as solved by the project are in their respectively named folders here: HDFS_FILES/user/spark/p2/output/.
 
-#Important Notice
+# Important Notice
 The problems involving Timestamps yeild illogical results.
 This is due to the fact that many of the records contain timestamps that are illogical.
 According to the data many of the songs end about a year before they start. Others also end about a year after.
@@ -33,3 +33,8 @@ Many bad records (based on logic) were retained because the project's filtering 
 Data/Web and Data/Mob are the folders that contain the data on which was analyzed by this project.
 
 SBT packaged jar file used for running all spark programs is proj2_2.11-0.1.jar.
+
+# Scheduler
+Part of the project is to shedule this application to run every 24 hours.
+I ran this code (crontab -e) to create a chron table using  (0 8 * * * /home/spark/p2/scripts/music_cron.sh).
+This will run the application every morning at 8am.
