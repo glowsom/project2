@@ -53,6 +53,7 @@ else
 	#Load HBase config table for hbase access
 	hdfs dfs -put $root/conf3.txt $pRoot
 
+	#This wil be the scheduler for this application. It will run at 8am every morning.
 	#write out current crontab
 	crontab -l > music_cron
 	#echo new cron into cron file. This will run music_cron.sh every morning at 8am.
