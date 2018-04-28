@@ -13,7 +13,7 @@ then
 	echo "Batch file found & updating..."
 
 	#Update batchid & current batch file to reflect current number of iterations
-	batchid=(`cat $root/logs/current_batch.txt`+1)	
+	let "batchid=batchid+1"	
 	echo -n $batchid > "$root/logs/current_batch.txt"
 
 	LOGFILE=$root/logs/log_batch_$batchid
@@ -52,6 +52,15 @@ else
 
 	#Load HBase config table for hbase access
 	hdfs dfs -put $root/conf3.txt $pRoot
+
+	#write out current crontab
+	crontab -l > music_cron
+	#echo new cron into cron file. This will run music_cron.sh every morning at 8am.
+	echo "00 08 * * * ./$root/scripts/music_cron.sh" >> music_cron
+
+	echo "install new cron file" >> $LOGFILE
+	crontab music_cron
+	rm music_cron
 fi
 
 
