@@ -1,0 +1,4 @@
+companies_patterns=companies_patterns
+song_artist_map=song_artist_map
+stn_geocd_map=stn_geocd_map
+user_artist_subscn_map=user_artist_subscn_map
