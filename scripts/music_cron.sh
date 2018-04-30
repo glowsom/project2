@@ -13,8 +13,9 @@ then
 	echo "Batch file found & updating..."
 
 	#Update batchid & current batch file to reflect current number of iterations
-	let "batchid=batchid+1"	
-	echo -n $batchid > "$root/logs/current_batch.txt"
+	batchid=`cat $root/logs/current_batch.txt`
+        let "batchid++"
+        echo -n "$batchid" > "$root/logs/current_batch.txt"
 
 	LOGFILE=$root/logs/log_batch_$batchid
 
