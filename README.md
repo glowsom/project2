@@ -38,5 +38,7 @@ Data/Web and Data/Mob are the folders that contain the data on which was analyze
 
 # Scheduler
 Part of the project is to shedule this application to run every 24 hours.
-I ran this code (crontab -e) to create a chron table using  (0 8 * * * /home/spark/p2/scripts/music_cron.sh).
-This will run the application every morning at 8am.
+Crontab has been used to run the application every morning at 8am.
+
+# Logs
+Whenever the application is run, a log file will be created in the logs folder to help track the activities.
