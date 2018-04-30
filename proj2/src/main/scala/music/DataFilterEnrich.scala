@@ -32,14 +32,8 @@ object DataFilterEnrich{
     val conf = new Configuration();
     val prop1 = new Properties();
     val uri = args(0);
-
     prop1.load(FileSystem.get(URI.create(uri), conf).open(new Path(uri)))
-
-    /**
-      *
-      */
-
-    //
+   
     val station_geo_cd_Hbase_conf = HBaseConfiguration.create();
     station_geo_cd_Hbase_conf.set("hbase.zookeeper.quorum", "sandbox-hdp.hortonworks.com");
     station_geo_cd_Hbase_conf.set(TableInputFormat.INPUT_TABLE,prop1.getProperty("stn_geocd_map"))
@@ -54,19 +48,18 @@ object DataFilterEnrich{
 
     val station_geo_cd_map = spark.sparkContext.broadcast(station_geo_cd.map(x => (x._1 -> x._2)).collectAsMap)
 
-
-    //
+    //Repeat same for song_artist map.
     val song_artist_Hbase_conf = HBaseConfiguration.create();
     song_artist_Hbase_conf.set("hbase.zookeeper.quorum", "sandbox-hdp.hortonworks.com");
     song_artist_Hbase_conf.set(TableInputFormat.INPUT_TABLE,prop1.getProperty("song_artist_map"))
     song_artist_Hbase_conf.set("zookeeper.znode.parent", "/hbase-unsecure")
 
     val song_artist_Hbase = spark.sparkContext.newAPIHadoopRDD(song_artist_Hbase_conf, classOf[TableInputFormat], classOf[ImmutableBytesWritable], classOf[Result])
-    // Access LookUp tables in map format
+    
     val song_artist = song_artist_Hbase.mapPartitions(f => f.map(row1 => (
       Bytes.toString(row1._2.getRow),
       Bytes.toString(row1._2.getValue(Bytes.toBytes("artist"), Bytes.toBytes("id"))))))
-    //
+   
     val song_artist_map = spark.sparkContext.broadcast(song_artist.map(x => (x._1 -> x._2)).collectAsMap)
 
 
@@ -130,7 +123,7 @@ object DataFilterEnrich{
     /*===================================================DATA ENRICHMENT==================================================*/
 
     /**
-      * Enrich Data with
+      * Enrich Data with udfs to fill in missing content.
       */
 
     val enrichedDF = filteredDF.select( col("user_id"),
@@ -149,7 +142,7 @@ object DataFilterEnrich{
       .filter( col("artist_id") =!= "invalid" || col("geo_cd") =!= "invalid" )
 
 
-    enrichedDF.write.format("parquet").save(args(3))
+    enrichedDF.write.format("parquet").save(args(3))    //Saving in parquet for quick access in Data analysis stage.
 
 
 
