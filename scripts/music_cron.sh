@@ -57,7 +57,7 @@ else
 	#write out current crontab
 	crontab -l > music_cron
 	#echo new cron into cron file. This will run music_cron.sh every morning at 8am.
-	echo "00 08 * * * ./$root/scripts/music_cron.sh" >> music_cron
+	echo "00 08 * * * root $root/scripts/music_cron.sh" >> music_cron
 
 	echo "install new cron file" >> $LOGFILE
 	crontab music_cron
